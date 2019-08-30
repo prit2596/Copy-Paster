@@ -20,11 +20,11 @@
 
     function copyContent() {
 
-        var copyText = document.getElementById("broadcasted-text").value;
+        
         
         /* Select the text field */
         $("textarea#broadcasted-text").select(); 
-        
+        $("textarea#broadcasted-text").setSelectionRange(0, 99999); /*For mobile devices*/
         /* Copy the text inside the text field */
         document.execCommand("copy");
     }
