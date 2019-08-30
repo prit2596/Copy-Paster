@@ -24,7 +24,7 @@
         
         /* Select the text field */
         $("textarea#broadcasted-text").select(); 
-        $("textarea#broadcasted-text").setSelectionRange(0, 99999); /*For mobile devices*/
+        //$("textarea#broadcasted-text").setSelectionRange(0, 99999); /*For mobile devices*/
         /* Copy the text inside the text field */
         document.execCommand("copy");
     }
@@ -38,6 +38,7 @@
     });
     socket.on('content', function(msg){
       $('#broadcasted-text').val(msg);
+      //$('#duplicated-text').val(msg);
     });
   });
 </script>
@@ -61,7 +62,9 @@
                 <br>
                 <div>
                         <button id="copyButton" type="button" class="btn btn-outline-primary" style="float: right;" onclick="copyContent()">Copy</button>    
-                    <textarea readonly class="form-control" id="broadcasted-text" rows="7"></textarea>                    
+                    <textarea readonly class="form-control" id="broadcasted-text" rows="7"></textarea>
+                    <!-- <textarea hidden class="form-control" id="duplicated-text" rows="7"></textarea> -->
+                                        
                     
                 </div>
                 
