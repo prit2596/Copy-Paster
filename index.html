@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Copy-Paster</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+
+        #copyButton{
+            position: relative;
+            top: 38px;
+        }
+</style>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+    function copyContent() {
+
+        var copyText = document.getElementById("broadcasted-text").value;
+        
+        /* Select the text field */
+        $("textarea#broadcasted-text").select(); 
+        
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    }
+    $(function () {
+    var socket = io();
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('content', $('#text-input').val());
+      $('#text-input').val('');
+      return false;
+    });
+    socket.on('content', function(msg){
+      $('#broadcasted-text').val(msg);
+    });
+  });
+</script>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1 align="center">Copy-Paster</h1>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <form>
+                    <div class="form-group">
+                        <label for="text-input">Enter your text below:</label>
+                        <textarea class="form-control" id="text-input" rows="6"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Broadcast Content</button>
+                </form>
+                <br>
+                <div>
+                        <button id="copyButton" type="button" class="btn btn-outline-primary" style="float: right;" onclick="copyContent()">Copy</button>    
+                    <textarea readonly class="form-control" id="broadcasted-text" rows="7"></textarea>                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
