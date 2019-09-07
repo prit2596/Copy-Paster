@@ -18,8 +18,37 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
 
+    $(document).ready(function(){
+        
+        if(!$("#broadcasted-text").val()){
+            $("#broadcasted-text").hide();
+            $("#copyButton").hide();
+        }
+        else{
+            $("#broadcasted-text").show();
+            $("#copyButton").show();
+        }
+    })
+
     function copyContent() {
 
+        // var broadcastedText = document.getElementById("broadcasted-text");
+        // var oldContentEditable = broadcastedText.contentEditable, 
+        // oldReadOnly = broadcastedText.readOnly, 
+        // range = document.createRange();
+
+        // broadcastedText.contentEditable = true;
+        // broadcastedText.readOnly = false;
+        // range.selectNodeContents(broadcastedText);
+
+        // var s = window.getSelection();
+        // s.removeAllRanges();
+        // s.addRange(range);
+
+        // broadcastedText.setSelectionRange(0, 999999);
+        // broadcastedText.readOnly = oldReadOnly;
+
+        // document.execCommand("copy");
         
         
         /* Select the text field */
@@ -27,6 +56,7 @@
         //$("textarea#broadcasted-text").setSelectionRange(0, 99999); /*For mobile devices*/
         /* Copy the text inside the text field */
         document.execCommand("copy");
+        
     }
     $(function () {
     var socket = io();
@@ -38,6 +68,8 @@
     });
     socket.on('content', function(msg){
       $('#broadcasted-text').val(msg);
+      $("#broadcasted-text").show();
+        $("#copyButton").show();
       //$('#duplicated-text').val(msg);
     });
   });
@@ -45,12 +77,14 @@
 <body>
     <div class="container">
         <div class="row">
+            <div class="col-2"></div>
             <div class="col-8">
                 <h1 align="center">Copy-Paster</h1>
                 <hr>
             </div>
         </div>
         <div class="row">
+            <div class="col-2"></div>
             <div class="col-8">
                 <form>
                     <div class="form-group">

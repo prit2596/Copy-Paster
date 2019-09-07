@@ -8,14 +8,14 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-    console.log('a user connected');
+    //console.log('a user connected');
 
     socket.on('content', function(msg){
-        console.log(msg);
+        //console.log(msg);
         io.emit('content', msg);
     })
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+        //console.log('user disconnected');
     });
 });
 var port = process.env.PORT || 5000; 
